@@ -26,22 +26,22 @@ export const Route = createRootRoute({
       {
         rel: 'apple-touch-icon',
         sizes: '180x180',
-        href: '/apple-touch-icon.png',
+        href: '/favicon.svg',
       },
       {
         rel: 'icon',
         type: 'image/png',
         sizes: '32x32',
-        href: '/favicon-32x32.png',
+        href: '/favicon.svg',
       },
       {
         rel: 'icon',
         type: 'image/png',
         sizes: '16x16',
-        href: '/favicon-16x16.png',
+        href: '/favicon.svg',
       },
       { rel: 'manifest', href: '/site.webmanifest', color: '#fffff' },
-      { rel: 'icon', href: '/favicon.ico' },
+      { rel: 'icon', href: '/favicon.svg' },
     ],
   }),
   errorComponent: DefaultCatchBoundary,
@@ -66,7 +66,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           >
             Home
           </Link>
-          <Link
+          {/* <Link
             // @ts-expect-error
             to="/this-route-does-not-exist"
             activeProps={{
@@ -74,7 +74,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             }}
           >
             This Route Does Not Exist
-          </Link>
+          </Link> */}
         </div>
         <hr />
         {children}
