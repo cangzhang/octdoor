@@ -13,6 +13,7 @@ import { createServerRootRoute } from '@tanstack/react-start/server'
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RedirectRouteImport } from './routes/redirect'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DoorUidOpenRouteImport } from './routes/door.$uid.open'
 import { ServerRoute as ApiDoorUidOpenServerRouteImport } from './routes/api/door.$uid.open'
 
 const rootServerRouteImport = createServerRootRoute()
@@ -27,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DoorUidOpenRoute = DoorUidOpenRouteImport.update({
+  id: '/door/$uid/open',
+  path: '/door/$uid/open',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiDoorUidOpenServerRoute = ApiDoorUidOpenServerRouteImport.update({
   id: '/api/door/$uid/open',
   path: '/api/door/$uid/open',
@@ -36,27 +42,31 @@ const ApiDoorUidOpenServerRoute = ApiDoorUidOpenServerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/redirect': typeof RedirectRoute
+  '/door/$uid/open': typeof DoorUidOpenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/redirect': typeof RedirectRoute
+  '/door/$uid/open': typeof DoorUidOpenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/redirect': typeof RedirectRoute
+  '/door/$uid/open': typeof DoorUidOpenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/redirect'
+  fullPaths: '/' | '/redirect' | '/door/$uid/open'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/redirect'
-  id: '__root__' | '/' | '/redirect'
+  to: '/' | '/redirect' | '/door/$uid/open'
+  id: '__root__' | '/' | '/redirect' | '/door/$uid/open'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   RedirectRoute: typeof RedirectRoute
+  DoorUidOpenRoute: typeof DoorUidOpenRoute
 }
 export interface FileServerRoutesByFullPath {
   '/api/door/$uid/open': typeof ApiDoorUidOpenServerRoute
@@ -96,6 +106,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/door/$uid/open': {
+      id: '/door/$uid/open'
+      path: '/door/$uid/open'
+      fullPath: '/door/$uid/open'
+      preLoaderRoute: typeof DoorUidOpenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 declare module '@tanstack/react-start/server' {
@@ -113,6 +130,7 @@ declare module '@tanstack/react-start/server' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   RedirectRoute: RedirectRoute,
+  DoorUidOpenRoute: DoorUidOpenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
